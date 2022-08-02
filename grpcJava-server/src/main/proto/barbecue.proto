@@ -1,0 +1,60 @@
+syntax = "proto3";
+option java_multiple_files = true;
+package com.br.estudos.grpc;
+
+
+message RegisterMemberRequest {
+    string firstName = 1;
+    string lastName = 2;
+    string phone = 3;
+    string eventName = 4;
+}
+
+message RegisterMemberResponse {
+    string welcomeMessage = 1;
+}
+
+message RegisterItensRequest {
+    string description = 1;
+    int32 quantity = 2;
+}
+
+message RegisterItemResponse {
+    int32 totalItensCreated = 1;
+}
+
+message MembersResponse {
+    string firstName = 1;
+    string lastName = 2;
+    string phone = 3;
+}
+
+message MemberRequest {
+    string eventName = 1;
+}
+
+message ReceiptRequest {
+    string receipt = 1;
+}
+
+message VoucherResponse {
+    string voucher = 1;
+}
+
+message EventResquest {
+    string eventName = 1;
+}
+
+message Void {}
+
+service BarbecueService {
+    rpc registerMember(RegisterMemberRequest) returns (RegisterMemberResponse);
+    
+    rpc registerItens(stream RegisterItensRequest) returns (RegisterItemResponse);
+
+    rpc listMembers(MemberRequest) returns (stream MembersResponse);
+
+	rpc voucherAndReceipts(stream ReceiptRequest) returns (stream VoucherResponse);
+
+	rpc createEvent(EventResquest) returns (Void);
+}
